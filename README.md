@@ -20,7 +20,8 @@ fis.match('*.js', {
         accessKey: '在阿里云OSS申请的 accessKeyId',
         secretKey: '在阿里云OSS申请的 secretAccessKey',
         bucket: '你的存储空间名称',
-        ossServer: '[可选，不填写默认为杭州节点]'
+        ossServer: '[可选，不填写默认为杭州节点]',
+        to: '你的上传路径地址'
     })
 })
 ```

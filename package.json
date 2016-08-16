@@ -1,6 +1,6 @@
 {
-  "name": "fis3-deploy-alioss",
-  "version": "1.0.5",
+  "name": "fis3-deploy-smart-alioss",
+  "version": "0.0.1",
   "description": "fis fis3 deploy Aliyun OSS plugin",
   "main": "index.js",
   "repository": {

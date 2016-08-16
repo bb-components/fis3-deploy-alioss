@@ -1,5 +1,8 @@
 /**
  * fis3-deploy-alioss
+ * beth 修改
+ * 添加自定义目录参数to
+ * 过滤node_modules 和 modules参数
  */
 
 var ALY = require("aliyun-sdk");
@@ -64,23 +67,33 @@ module.exports = function(options, modified, total, callback, next) {
 
   var steps = [];
 
+  console.log('options', options);
   modified.forEach(function(file) {
     var reTryCount = options.retry;
-    steps.push(function(next) {
-      var _upload = arguments.callee;
+    var releaseUrl = file.getHashRelease();
 
-      uploadOss(options.bucket, file.getHashRelease(), file.getContent(), file, function(error){
-        if (error) {
-          if (!--reTryCount) {
-            throw new Error(error);
+    if(releaseUrl.indexOf('node_modules') > -1 || releaseUrl.indexOf('modules') > -1){
+      // console.log('不上传', releaseUrl);
+    }else{
+      
+      steps.push(function(next) {
+        var _upload = arguments.callee;
+        
+        uploadOss(options.bucket, options.to + file.getHashRelease(), file.getContent(), file, function(error){
+          if (error) {
+            if (!--reTryCount) {
+              throw new Error(error);
+            } else {
+              _upload();
+            }
           } else {
-            _upload();
+            next(); //由于是异步的如果后续还需要执行必须调用 next
           }
-        } else {
-          next(); //由于是异步的如果后续还需要执行必须调用 next
-        }
+        });
+
       });
-    });
+    }
+
   });
   steps.push(function(next) {
     console.log('\n已全部上传到AliyunOSS\n');
