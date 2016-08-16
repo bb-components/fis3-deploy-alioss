@@ -7,7 +7,7 @@ FIS 静态资源部署Aliyun Oss插件。
 全局安装或者本地安装都可以。
 
 ```
-npm install fis3-deploy-alioss or npm install fis3-deploy-alioss -g
+npm install fis3-deploy-smart-alioss or npm install fis3-deploy-smart-alioss -g
 ```
 
 ## 使用方法
@@ -16,7 +16,7 @@ npm install fis3-deploy-alioss or npm install fis3-deploy-alioss -g
 
 ```js
 fis.match('*.js', {
-    deploy: fis.plugin('alioss', {
+    deploy: fis.plugin('smart-alioss', {
         accessKey: '在阿里云OSS申请的 accessKeyId',
         secretKey: '在阿里云OSS申请的 secretAccessKey',
         bucket: '你的存储空间名称',
